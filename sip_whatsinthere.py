@@ -161,8 +161,26 @@ df["License"].value_counts().plot(kind='bar')
 
 
 # Time serie of creation dates (increase number of resources..)
-df["Created"].plot()
-df["Last updated"].plot()
+# df.sort_values("Created")["Created"].plot()
+# df.sort_values("Last updated")["Last updated"].plot()
+
+
+sorted_df = df.sort_values("Created")
+idx = sorted_df.sort_index(False).index
+pp = idx/(len(idx)+1)
+
+sorted_df2 = df.sort_values("Last updated")
+idx2 = sorted_df2.sort_index(False).index
+pp2 = idx2/(len(idx2)+1)
+
+
+plt.plot(sorted_df["Created"], pp*100)
+plt.plot(sorted_df2["Last updated"], pp2*100)
+plt.xticks(rotation=90)
+
+plt.legend(["Created", "Last updated"])
+
+
 
 
 
