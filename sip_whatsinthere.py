@@ -24,6 +24,7 @@ cdate = []
 ldate = []
 abst = []
 alt = []
+doi = []
 
 
 # TODO: cross check con le categorie di geonode (api/v2/categories)
@@ -94,6 +95,8 @@ while url != None:
             # alternate text
             alt.append(res.get("alternate"))    
             
+            # Digital Object Identifier
+            doi.append(res.get("doi"))    
             
             # > For loop ends here._
     else:
@@ -113,7 +116,8 @@ d = {"PK" :             pk,
      "Created" :        cdate,
      "Last updated" :   ldate,
      "Abstract" :       abst,
-     "Alt-name" :       alt}
+     "Alt-name" :       alt,
+     "DOI" :            doi}
 
 df = pd.DataFrame(data=d)
 
@@ -135,12 +139,16 @@ len(set(df["Author"]))
 # Exploratory graphs
 
 df["Author"].value_counts().plot(kind='bar', ylabel='Count')
-df["Author"].value_counts().plot(kind='pie', explode = (0.1, 0, 0, 0, 0, 0, 0, 0), autopct='%1.1f%%')
+df["Author"].value_counts().plot(kind='pie', autopct='%1.1f%%') #, explode = (0.1, 0, 0, 0, 0, 0, 0, 0)
 
 
-df["Type"].value_counts().plot(kind='pie', explode = (0, 0, 0.1, 0), autopct='%1.1f%%')
+df["Type"].value_counts().plot(kind='pie', autopct='%1.1f%%') # , explode = (0, 0, 0.1, 0)
 
 df["License"].value_counts().plot(kind='bar')
+
+# df["DOI"].value_counts().plot(kind='bar') # DOIs are missing
+
+
 
 # Spunti...
 # https://medium.com/@kvnamipara/a-better-visualisation-of-pie-charts-by-matplotlib-935b7667d77f
