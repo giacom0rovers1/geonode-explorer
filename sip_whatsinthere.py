@@ -31,7 +31,6 @@ doi = []
 
 url = "https://platform.score-eu-project.eu/api/v2/resources"
 
-# params = {"Authorization" : "Bearer UjYxYUKtEoDg3ifrucJNnMEr8djazr", "format" : "json"}
 # page = 1
 # page_size = 10
 # total = 132
@@ -164,22 +163,21 @@ df["License"].value_counts().plot(kind='bar')
 # df.sort_values("Created")["Created"].plot()
 # df.sort_values("Last updated")["Last updated"].plot()
 
-
 sorted_df = df.sort_values("Created")
 idx = sorted_df.sort_index(False).index
-pp = idx/(len(idx)+1)
 
 sorted_df2 = df.sort_values("Last updated")
 idx2 = sorted_df2.sort_index(False).index
-pp2 = idx2/(len(idx2)+1)
 
-
-plt.plot(sorted_df["Created"], pp*100)
-plt.plot(sorted_df2["Last updated"], pp2*100)
+fig03 = plt.figure(figsize=(6.4, 4.8), dpi=300)
+plt.plot(sorted_df["Created"], idx, label="Created")
+plt.plot(sorted_df2["Last updated"], idx2, label="Last updated")
 plt.xticks(rotation=90)
-
-plt.legend(["Created", "Last updated"])
-
+plt.legend()
+plt.ylabel("Resources count")
+plt.xlabel("Time (UTC)")
+plt.tight_layout()
+fig03.savefig('population.png')
 
 
 
