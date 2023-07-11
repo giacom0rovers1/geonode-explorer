@@ -161,7 +161,7 @@ class content:
                                          ylabel='Resources count')
         ax.bar_label(ax.containers[0], label_type='edge')
         plt.tight_layout()
-        fig01.show()
+        # fig01.show()
         
         if save:
             fig01.savefig(self.nick + '_authors.png')
@@ -175,7 +175,7 @@ class content:
         self.df["Type"].value_counts().plot(kind='pie', 
                                        autopct='%1.1f%%')
         plt.tight_layout()
-        fig02.show()
+        # fig02.show()
         
         if save: 
             fig02.savefig(self.nick + '_categories.png')
@@ -194,7 +194,7 @@ class content:
         plt.ylabel("Resources count")
         plt.xlabel("Time (UTC)")
         plt.tight_layout()
-        fig03.show()
+        # fig03.show()
         
         if save:
             fig03.savefig(self.nick + '_population.png')
@@ -213,7 +213,7 @@ class content:
         plt.ylabel("Author")
         plt.xlabel("Time (UTC)")
         plt.tight_layout()
-        fig04.show()
+        # fig04.show()
         
         if save:
             fig04.savefig(self.nick + '_activity.png')
