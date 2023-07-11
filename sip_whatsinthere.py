@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# -*- coding: utf-8x -*-
 """
 Created on Fri Jun 23 18:12:07 2023
 
 @author: giacom0rovers1
 """
+
 # import os
 import requests
 import warnings
