@@ -166,6 +166,7 @@ class content:
         
 
     # Exploratory graphs
+    # TODO organizzare la stampa a due a due con subplot
 
     def plot_AuthorsHist(self, save=False):
         fig01 = plt.figure(figsize=(6.4, 4.8), dpi=300)
@@ -235,5 +236,14 @@ class content:
             fig04.savefig(self.nick + '_activity.png')
 
             
-            
+    ## TODO
+    
+    # def load_previous()
+        # scans for CSVs and loads them as content (?) objects (missing infos) 
         
+    # def track_changes()
+        # shows changes since last CSV save (both in summary-like form and with figures)
+        # timeline plot could show points/lines corresponding to the different CSVs stored locally
+        
+    
+    
