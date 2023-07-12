@@ -16,7 +16,7 @@ from datetime import datetime
 
 
 def GET_loop(url, flt, types):
-    print("\n>> Getting online resources...\n")
+    print(">> Getting online resources...")
     # empty lists
     pk = []
     uuid = []
@@ -82,7 +82,7 @@ def GET_loop(url, flt, types):
                     # > For loop ends here._
             else:
                 print(url)
-                print(f"\n>> Error: {response.status_code}\n")
+                print(f">> Error: {response.status_code}")
                 break
             
             # > While loop ends here._
@@ -109,7 +109,7 @@ def GET_loop(url, flt, types):
     for key in ["Author", "Type", "License"]:
         df[key] = df[key].astype("category")
         
-    print("\n>> Done.\n")
+    print(">> Done.")
     return df
 
 
@@ -148,21 +148,21 @@ class content:
     # Table functions
     
     def summary(self):
-        print(f"\nResources:\t\t{self.nR}")
+        print(f"Resources:\t\t{self.nR}")
         print(f"Authors:  \t\t{self.nA}")
         print("\nComposition:")
         for i in range(0, len(self.types)):
             print(f"\t\t\t\t{len(np.where(self.df.Type==self.types[i])[0])} \t {self.types[i]}s")
-        print(f"\nFirst upload: \t{np.min(self.df['Created'])} UTC")
-        print(f"Last edit:    \t{np.max(self.df['Last updated'])} UTC")
+        print(f"\nFirst upload: \t{np.min(self.df['Created']).strftime('%Y/%m/%d %H:%M:%S')} UTC")
+        print(f"Last edit:    \t{np.max(self.df['Last updated']).strftime('%Y/%m/%d %H:%M:%S')} UTC")
         
     
     def print_DF(self):
-        print(f"\n {self.name} contents at {self.dt} UTC\n")
+        print(f"{self.name} contents at {self.dt.strftime('%Y/%m/%d %H:%M:%S')} UTC:")
         print(self.df)
         
     def save_CSV(self):
-        self.df.to_csv(self.nick + f"_table_{self.dt}.csv")
+        self.df.to_csv(self.nick + f"_table_{self.dt.date()}.csv")
         
 
     # Exploratory graphs
@@ -170,7 +170,8 @@ class content:
     def plot_AuthorsHist(self, save=False):
         fig01 = plt.figure(figsize=(6.4, 4.8), dpi=300)
         fig01.suptitle("Authors", fontsize=16)
-        fig01.text(0.5, 0.9, f'[url request at {self.dt}]', horizontalalignment="center", color="grey")
+        fig01.text(0.5, 0.9, f"[url request at {self.dt.strftime('%Y/%m/%d %H:%M:%S UTC')}]", 
+                   horizontalalignment="center", color="grey")
         
         ax = self.df["Author"].value_counts().plot(kind='bar', 
                                          ylabel='Resources count')
@@ -184,7 +185,7 @@ class content:
     def plot_TypesPie(self, save=False):
         fig02 = plt.figure(figsize=(6.4, 4.8), dpi=300)
         fig02.suptitle("Resource types", fontsize=16)
-        fig02.text(0.5, 0.9, f'[url request at {self.dt}]', 
+        fig02.text(0.5, 0.9, f"[url request at {self.dt.strftime('%Y/%m/%d %H:%M:%S UTC')}]", 
                    horizontalalignment="center", color="grey")
         
         self.df["Type"].value_counts().plot(kind='pie', 
@@ -198,7 +199,7 @@ class content:
     def plot_AggregTS(self, save=False):
         fig03 = plt.figure(figsize=(6.4, 4.8), dpi=300)
         fig03.suptitle("Aggregated upload history", fontsize=16)
-        fig03.text(0.5, 0.9, f'[url request at {self.dt}]', 
+        fig03.text(0.5, 0.9, f"[url request at {self.dt.strftime('%Y/%m/%d %H:%M:%S UTC')}]", 
                    horizontalalignment="center", color="grey")
         
         plt.plot(self.sorted_df["Created"], self.idx, label="Created")
@@ -218,7 +219,7 @@ class content:
     def plot_Contributions(self, save=False):
         fig04=plt.figure(figsize=(6.4, 4.8), dpi=300)
         fig04.suptitle("Contribution history per author", fontsize=16)
-        fig04.text(0.5, 0.9, f'[url request at {self.dt}]', horizontalalignment="center", color="grey")
+        fig04.text(0.5, 0.9, f"[url request at {self.dt.strftime('%Y/%m/%d %H:%M:%S UTC')}]", horizontalalignment="center", color="grey")
         
         plt.scatter(self.sorted_df["Created"], self.sorted_df["Author"], label="Created")
         plt.scatter(self.sorted_df["Last updated"], self.sorted_df["Author"], label="Last updated")
