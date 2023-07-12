@@ -8,13 +8,15 @@ Created on Tue Jul 11 18:52:38 2023
 
 import requests
 import warnings
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+
 from datetime import datetime
 
 
 def GET_loop(url, flt, types):
-
+    print("\n>> Getting online resources...\n")
     # empty lists
     pk = []
     uuid = []
@@ -80,7 +82,7 @@ def GET_loop(url, flt, types):
                     # > For loop ends here._
             else:
                 print(url)
-                print(f"Error: {response.status_code}")
+                print(f"\n>> Error: {response.status_code}\n")
                 break
             
             # > While loop ends here._
@@ -107,7 +109,7 @@ def GET_loop(url, flt, types):
     for key in ["Author", "Type", "License"]:
         df[key] = df[key].astype("category")
         
-    print("Done.")
+    print("\n>> Done.\n")
     return df
 
 
@@ -140,14 +142,27 @@ class content:
         self.idx  = self.sorted_df.sort_index(ascending = True).index
         self.idx2 = self.sorted_df2.sort_index(ascending = True).index
         
+        self.nR = len(self.df)
+        self.nA = len(self.Authors)
         
     # Table functions
     
-    def print_(self):
+    def summary(self):
+        print(f"\nResources:\t\t{self.nR}")
+        print(f"Authors:  \t\t{self.nA}")
+        print("\nComposition:")
+        for i in range(0, len(self.types)):
+            print(f"\t\t\t\t{len(np.where(self.df.Type==self.types[i])[0])} \t {self.types[i]}s")
+        print(f"\nFirst upload: \t{np.min(self.df['Created'])} UTC")
+        print(f"Last edit:    \t{np.max(self.df['Last updated'])} UTC")
+        
+    
+    def print_DF(self):
+        print(f"\n {self.name} contents at {self.dt} UTC\n")
         print(self.df)
         
     def save_CSV(self):
-        self.df.to_csv(self.nick + '_table.csv')
+        self.df.to_csv(self.nick + f"_table_{self.dt}.csv")
         
 
     # Exploratory graphs
