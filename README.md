@@ -1,15 +1,13 @@
 
 # geonode-explorer
 
-This is a tool to extract information and metadata about online geospatial resources through the GeoNode APIs. The `geonodexplorer` module defines a `content` class where the information is stored and could be saved to file or plotted.
+This is a tool to extract information and metadata about online geospatial resources through the GeoNode APIs. The `geonodexplorer` module defines a **content** class where the information is stored and could be saved to file or plotted.
 
 ***
 
 Author: 
 
-*Giacomo Roversi
-CNR-ISAC Rome (IT)
-July 2023*
+*Giacomo Roversi, CNR-ISAC, Rome (IT), July 2023*
 
 ***
 
