@@ -172,7 +172,6 @@ class content:
         
 
     # Exploratory graphs
-    # TODO organizzare la stampa a due a due con subplot
 
     def plot_AuthorsHist(self, save=False):
         self.fig01 = plt.figure(figsize=(6.4, 4.8), dpi=300)
