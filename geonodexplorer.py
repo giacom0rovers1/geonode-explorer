@@ -168,7 +168,7 @@ class content:
         
     def plot_TypesPie(self, save=False):
         fig02 = plt.figure(figsize=(6.4, 4.8), dpi=300)
-        fig02.suptitle("Categories", fontsize=16)
+        fig02.suptitle("Resource types", fontsize=16)
         fig02.text(0.5, 0.9, f'[url request at {self.dt}]', 
                    horizontalalignment="center", color="grey")
         
@@ -178,7 +178,7 @@ class content:
         # fig02.show()
         
         if save: 
-            fig02.savefig(self.nick + '_categories.png')
+            fig02.savefig(self.nick + '_restype.png')
 
     def plot_AggregTS(self, save=False):
         fig03 = plt.figure(figsize=(6.4, 4.8), dpi=300)
