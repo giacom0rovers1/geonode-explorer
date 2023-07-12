@@ -22,3 +22,4 @@ sip.plot_AuthorsHist(True)
 sip.plot_TypesPie(True)
 sip.plot_AggregTS(True)
 sip.plot_Contributions(True)
+

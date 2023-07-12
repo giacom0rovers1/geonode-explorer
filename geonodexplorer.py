@@ -31,7 +31,9 @@ def GET_loop(url, flt, types):
     doi = []
     # owner = []
     # count = []
-
+    
+    err = False
+    
     for par in types:
         query = url + flt + par
         print(query)
@@ -83,6 +85,7 @@ def GET_loop(url, flt, types):
             else:
                 print(url)
                 print(f">> Error: {response.status_code}")
+                err = True
                 break
             
             # > While loop ends here._
@@ -109,8 +112,11 @@ def GET_loop(url, flt, types):
     for key in ["Author", "Type", "License"]:
         df[key] = df[key].astype("category")
         
-    print(">> Done.")
-    return df
+    if err == True:
+        raise ConnectionError("Something went wrong.")
+    else:
+        print(">> Done.")
+        return df
 
 
 
@@ -169,38 +175,36 @@ class content:
     # TODO organizzare la stampa a due a due con subplot
 
     def plot_AuthorsHist(self, save=False):
-        fig01 = plt.figure(figsize=(6.4, 4.8), dpi=300)
-        fig01.suptitle("Authors", fontsize=16)
-        fig01.text(0.5, 0.9, f"[url request at {self.dt.strftime('%Y/%m/%d %H:%M:%S UTC')}]", 
+        self.fig01 = plt.figure(figsize=(6.4, 4.8), dpi=300)
+        self.fig01.suptitle("Authors", fontsize=16)
+        self.fig01.text(0.5, 0.9, f"[url request at {self.dt.strftime('%Y/%m/%d %H:%M:%S UTC')}]", 
                    horizontalalignment="center", color="grey")
         
         ax = self.df["Author"].value_counts().plot(kind='bar', 
                                          ylabel='Resources count')
         ax.bar_label(ax.containers[0], label_type='edge')
         plt.tight_layout()
-        # fig01.show()
         
         if save:
-            fig01.savefig(self.nick + '_authors.png')
+            self.fig01.savefig(self.nick + '_authors.png')
         
     def plot_TypesPie(self, save=False):
-        fig02 = plt.figure(figsize=(6.4, 4.8), dpi=300)
-        fig02.suptitle("Resource types", fontsize=16)
-        fig02.text(0.5, 0.9, f"[url request at {self.dt.strftime('%Y/%m/%d %H:%M:%S UTC')}]", 
+        self.fig02 = plt.figure(figsize=(6.4, 4.8), dpi=300)
+        self.fig02.suptitle("Resource types", fontsize=16)
+        self.fig02.text(0.5, 0.9, f"[url request at {self.dt.strftime('%Y/%m/%d %H:%M:%S UTC')}]", 
                    horizontalalignment="center", color="grey")
         
         self.df["Type"].value_counts().plot(kind='pie', 
                                        autopct='%1.1f%%')
         plt.tight_layout()
-        # fig02.show()
         
         if save: 
-            fig02.savefig(self.nick + '_restype.png')
+            self.fig02.savefig(self.nick + '_restype.png')
 
     def plot_AggregTS(self, save=False):
-        fig03 = plt.figure(figsize=(6.4, 4.8), dpi=300)
-        fig03.suptitle("Aggregated upload history", fontsize=16)
-        fig03.text(0.5, 0.9, f"[url request at {self.dt.strftime('%Y/%m/%d %H:%M:%S UTC')}]", 
+        self.fig03 = plt.figure(figsize=(6.4, 4.8), dpi=300)
+        self.fig03.suptitle("Aggregated upload history", fontsize=16)
+        self.fig03.text(0.5, 0.9, f"[url request at {self.dt.strftime('%Y/%m/%d %H:%M:%S UTC')}]", 
                    horizontalalignment="center", color="grey")
         
         plt.plot(self.sorted_df["Created"], self.idx, label="Created")
@@ -211,16 +215,15 @@ class content:
         plt.ylabel("Resources count")
         plt.xlabel("Time (UTC)")
         plt.tight_layout()
-        # fig03.show()
         
         if save:
-            fig03.savefig(self.nick + '_population.png')
+            self.fig03.savefig(self.nick + '_population.png')
             
         
     def plot_Contributions(self, save=False):
-        fig04=plt.figure(figsize=(6.4, 4.8), dpi=300)
-        fig04.suptitle("Contribution history per author", fontsize=16)
-        fig04.text(0.5, 0.9, f"[url request at {self.dt.strftime('%Y/%m/%d %H:%M:%S UTC')}]", horizontalalignment="center", color="grey")
+        self.fig04=plt.figure(figsize=(6.4, 4.8), dpi=300)
+        self.fig04.suptitle("Contribution history per author", fontsize=16)
+        self.fig04.text(0.5, 0.9, f"[url request at {self.dt.strftime('%Y/%m/%d %H:%M:%S UTC')}]", horizontalalignment="center", color="grey")
         
         plt.scatter(self.sorted_df["Created"], self.sorted_df["Author"], label="Created")
         plt.scatter(self.sorted_df["Last updated"], self.sorted_df["Author"], label="Last updated")
@@ -230,10 +233,9 @@ class content:
         plt.ylabel("Author")
         plt.xlabel("Time (UTC)")
         plt.tight_layout()
-        # fig04.show()
-        
+                
         if save:
-            fig04.savefig(self.nick + '_activity.png')
+            self.fig04.savefig(self.nick + '_activity.png')
 
             
     ## TODO
