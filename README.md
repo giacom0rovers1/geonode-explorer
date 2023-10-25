@@ -5,7 +5,8 @@ This is a tool to extract information and metadata about online geospatial resou
 
 + `geonodexplorer.py` module defines a **content** class where the online information is stored and could be explored, saved to file or plotted.
 
-+ `notebook.ipynb` contains a working demo of the module
++ `notebook.ipynb` contains a working demo of the module.
+Public url at [https://nbviewer.org/github/giacom0rovers1/geonode-explorer/blob/main/notebook.ipynb]
 
 
 ***
