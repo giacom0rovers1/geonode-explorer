@@ -17,6 +17,7 @@ from datetime import datetime
 
 def GET_loop(url, flt, types):
     print(">> Getting online resources...")
+
     # empty lists
     pk = []
     uuid = []
@@ -70,18 +71,21 @@ def GET_loop(url, flt, types):
                     alt.append(res.get("alternate"))                # alternate text
                     doi.append(res.get("doi"))                      # Digital Object Identifier
 
-                    # author: "username (full name)"
-                    name_fields = ["owner", "metadata_author", "poc"]
+                    ## author: "username (full name)"
+                    # name_fields = ["owner", "metadata_author", "poc"] bugfix (metadata author was a list of a dict?)
                     str = []
-                    for field in name_fields:
-                        str.append(res[field].get("username") + " (" +
-                                   res[field].get("first_name") + " " + 
-                                   res[field].get("last_name") + ")")
-                    if not str[0] == str[1] == str[2]:
-                        warnings.warn("Warning: more than one person involved...")
+                    # for field in name_fields:
+                        # print(res[field]) #debug
+                    field = "owner"  
+                    str.append(res[field].get("username") + " (" +
+                                res[field].get("first_name") + " " + 
+                                res[field].get("last_name") + ")")
+                    # if not str[0] == str[1] == str[2]:   #bugfix (str[1:2] do not exist)
+                    #     warnings.warn("Warning: more than one person involved...")
                     author.append(str[0]) # select owner only (first entry)
                     
                     # > For loop ends here._
+
             else:
                 print(url)
                 print(f">> Error: {response.status_code}")
@@ -104,9 +108,14 @@ def GET_loop(url, flt, types):
 
     df = pd.DataFrame(data=d)
 
+
     # Dates as dates
-    for key in ["Created", "Last updated"]:
-        df[key] = df[key].astype("datetime64[ns]")
+    for key in ["Created", "Last updated"]:        
+        # Convert the 'date' column to datetime64[ns]
+        df[key] = pd.to_datetime(df[key])
+        
+        # Remove timezone information to ensure datetime64[ns] type
+        df[key] = df[key].dt.tz_localize(None)
 
     # Categorical
     for key in ["Author", "Type", "License"]:
