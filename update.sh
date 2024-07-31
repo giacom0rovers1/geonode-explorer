@@ -13,12 +13,16 @@
 #SBATCH --mail-user=g.roversi@isac.cnr.it
 #SBATCH --output=/work/users/roversi/logs/%j_%x.log
 
+cd "/home/roversi/geonode-explorer/"
+
 # Execute the notebook
 jupyter nbconvert --to notebook --execute --inplace notebook.ipynb
 
 # Upload the changes
 git commit -am "Monthly automatic update"
 git push
+
+cd ~
 
 # Done.
 
