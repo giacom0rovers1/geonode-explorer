@@ -146,8 +146,12 @@ class content:
         self.flt   = '?filter{resource_type}='
         self.types = ('dataset', 'map', 'document', 'geostory', 'dashboard')
 
-        # Rest API calls
+        # Time of init
         self.dt = datetime.now()
+        print(self.dt.strftime('%Y/%m/%d %H:%M:%S'))
+        print()
+        
+        # Rest API calls
         self.df = GET_loop(self.url, self.flt, self.types)
         
         # Ancillary variables
