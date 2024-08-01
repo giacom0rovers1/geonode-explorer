@@ -15,8 +15,8 @@
 
 cd "/home/roversi/geonode-explorer/"
 
-# Execute the notebook
-jupyter nbconvert --to notebook --execute --inplace notebook.ipynb
+# Execute the notebook with extended timeout (10 min)
+jupyter nbconvert --ExecutePreprocessor.timeout=600 --to notebook --execute --inplace notebook.ipynb
 
 # Upload the changes
 git commit -am "Monthly automatic update"
