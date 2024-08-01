@@ -13,10 +13,13 @@
 #SBATCH --mail-user=g.roversi@isac.cnr.it
 #SBATCH --output=/work/users/roversi/logs/%j_%x.log
 
+export DISPLAY=:0
+
 cd "$HOME/geonode-explorer/"
 
-# Init the conda environment for the crontab shell
+# Activate the conda environment for the crontab shell
 source "$HOME/anaconda3/etc/profile.d/conda.sh"
+conda activate
 
 # Execute the notebook with extended timeout (10 min)
 jupyter nbconvert --ExecutePreprocessor.timeout=600 --to notebook --execute --inplace notebook.ipynb
