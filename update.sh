@@ -11,7 +11,7 @@
 #SBATCH --time 2:00:00
 #SBATCH --mail-type=end
 #SBATCH --mail-user=g.roversi@isac.cnr.it
-#SBATCH --output=/work/users/roversi/logs/%j_%x.log
+#SBATCH --output=/home/roversi/work/logs/%j_%x.log
 
 export DISPLAY=:0
 
