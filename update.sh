@@ -20,7 +20,7 @@ export DISPLAY=:0
 cd "$HOME/geonode-explorer/"
 
 # Activate the conda environment for the crontab shell
-source $HOME/anaconda3/etc/profile.d/conda.sh
+source $HOME/work/anaconda3/etc/profile.d/conda.sh
 conda activate
 
 # Execute the notebook with extended timeout (10 min)
