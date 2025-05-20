@@ -17,15 +17,13 @@
 
 export DISPLAY=:0
 
-cd "$HOME/geonode-explorer/"
-
-# Activate the conda environment for the crontab shell
-source $HOME/work/anaconda3/etc/profile.d/conda.sh
-conda activate
+# Initialize Anaconda3 (needed for the sbatch mode)
+source /home/roversi/work/anaconda3/etc/profile.d/conda.sh
+cd /home/roversi/geonode-explorer/
 
 # Execute the notebook with extended timeout (10 min)
-jupyter nbconvert --ExecutePreprocessor.timeout=600 --to notebook --execute --inplace notebook.ipynb
-#conda run -n base jupyter nbconvert --ExecutePreprocessor.timeout=600 --to notebook --execute --inplace notebook.ipynb
+# jupyter nbconvert --ExecutePreprocessor.timeout=600 --to notebook --execute --inplace notebook.ipynb
+conda run -n geonode jupyter nbconvert --ExecutePreprocessor.timeout=600 --to notebook --execute --inplace notebook.ipynb
 
 
 # Upload the changes
